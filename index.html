@@ -1,0 +1,82 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #page_wrapper {
+            margin: 20px 0;
+        }
+        h1,
+        h3 {
+            margin-left: 40px;
+        }
+        #messages {
+            font-family: monospace;
+        }
+        #messages li {
+            margin-bottom: 20px;
+        }
+        #messages p {
+            font-weight: bold;
+            margin: 0 0 10px 0;
+            cursor: pointer;
+            width: fit-content;
+        }
+        #messages pre {
+            background: rgba(0,0,0,.05);
+            padding: 10px;
+            margin: 0;
+            width: fit-content;
+        }
+        @media (max-width: 600px) {
+            body { font-size: 11px; }
+            ol { padding-left: 30px; }
+        }
+        /* shove the prompt out of the way so you can see the debug output */
+        .qc-cmp2-container > div {
+            width: 50% !important;
+            left: 50% !important;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="page_wrapper">
+        <h1>OneTrust Cookie Consent - TCF 2.0 Testing</h1>
+
+        <!-- OneTrust Cookies Settings button start -->
+        <div><button id="ot-sdk-btn" class="ot-sdk-show-settings"> Cookie Settings</button></div>
+        <!-- OneTrust Cookies Settings button end -->
+
+        <h3>Debug Messages:</h3>
+        <ol id="messages">
+
+        </ol>
+    </div>
+    
+<!-- OneTrust Cookies Consent Notice start -->
+<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="5cce347e-9ba9-4634-9203-06432606c572-test"></script>
+<script type="text/javascript">
+function OptanonWrapper() { }
+</script>
+<!-- OneTrust Cookies Consent Notice end -->
+
+  <script>
+  (function(){
+    jQuery(document).on('click', '#messages li p', function(){
+        jQuery(this).parent().find('pre').slideToggle();
+    });
+    var $messages = jQuery('#messages');
+    var ping_check = function(){
+      window.__tcfapi('ping', 2, function(pingData){
+        $messages.append('<li><p>__tcfapi("ping") response</p> <pre>' + JSON.stringify({pingData:pingData}, null, 4) + '</pre></li>');
+      });
+    };
+    ping_check();
+    window.__tcfapi('addEventListener', 2, function(tcfData, success){
+      $messages.append('<li><p>__tcfapi("addEventListener") response</p> <pre>' + JSON.stringify({tcfData:tcfData, success:success}, null, 4) + '</pre></li>');
+      ping_check();
+    });
+  })()
+  </script>
+</body>
+</html>
