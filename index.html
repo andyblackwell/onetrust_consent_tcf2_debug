@@ -78,11 +78,11 @@ function OptanonWrapper() { }
     ping_check();
     try{
         window.__tcfapi('addEventListener', 2, function(tcfData, success){
-            $messages.append('<li><p>__tcfapi("addEventListener") response</p> <pre>' + JSON.stringify({tcfData:tcfData, success:success}, null, 4) + '</pre></li>');
+            $messages.append('<li><p>__tcfapi("addEventListener") response</p> <pre>' + String(e) + '</pre></li>');
             ping_check();
         });
     }catch(e){
-        $messages.append('<li><p>__tcfapi("addEventListener") error</p> <pre>' + JSON.stringify({error:e}, null, 4) + '</pre></li>');
+        $messages.append('<li><p>__tcfapi("addEventListener") error</p> <pre>' + String(e) + '</pre></li>');
     }
   })()
   </script>
